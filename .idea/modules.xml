@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Modbus4Android.iml" filepath="$PROJECT_DIR$/Modbus4Android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/modbus4android/modbus4android.iml" filepath="$PROJECT_DIR$/modbus4android/modbus4android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Modbus4Android.iml" filepath="$PROJECT_DIR$/.idea/modules/Modbus4Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Modbus4Android.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Modbus4Android.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Modbus4Android.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Modbus4Android.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Modbus4Android.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Modbus4Android.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Modbus4Android.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Modbus4Android.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modbus4android/Modbus4Android.modbus4android.iml" filepath="$PROJECT_DIR$/.idea/modules/modbus4android/Modbus4Android.modbus4android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modbus4android/Modbus4Android.modbus4android.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/modbus4android/Modbus4Android.modbus4android.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modbus4android/Modbus4Android.modbus4android.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modbus4android/Modbus4Android.modbus4android.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modbus4android/Modbus4Android.modbus4android.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/modbus4android/Modbus4Android.modbus4android.unitTest.iml" />
     </modules>
   </component>
 </project>
