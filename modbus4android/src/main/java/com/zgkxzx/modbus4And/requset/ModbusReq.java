@@ -114,6 +114,11 @@ public class ModbusReq {
 
     }
 
+    public boolean isConnected() {
+        if (mModbusMaster == null) return false;
+        return mModbusMaster.isConnected();
+    }
+
     /**
      * destory the modbus4Android instance
      */
