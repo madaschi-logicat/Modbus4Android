@@ -20,14 +20,14 @@
  */
 package com.zgkxzx.modbus4And.ip.tcp;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Arrays;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
+import com.zgkxzx.modbus4And.BuildConfig;
 import com.zgkxzx.modbus4And.ModbusMaster;
 import com.zgkxzx.modbus4And.base.BaseMessageParser;
 import com.zgkxzx.modbus4And.exception.ModbusInitException;
@@ -50,11 +50,12 @@ import com.zgkxzx.modbus4And.sero.messaging.Transport;
 import com.zgkxzx.modbus4And.sero.messaging.WaitingRoomKeyFactory;
 
 public class TcpMaster extends ModbusMaster {
+    private final static String TAG = "TcpMaster";
+
     private static final int RETRY_PAUSE_START = 50;
     private static final int RETRY_PAUSE_MAX = 1000;
 
     // Configuration fields.
-	private final Log LOG = LogFactory.getLog(TcpMaster.class);
     private short nextTransactionId = 0;
     private final IpParameters ipParameters;
     private final boolean keepAlive;
@@ -98,7 +99,7 @@ public class TcpMaster extends ModbusMaster {
                 openConnection();
 
             if(conn == null){
-            	LOG.debug("Connection null: " +  ipParameters.getPort());
+            	Log.d(TAG, "Connection null: " +  ipParameters.getPort());
         	}
             
         }
@@ -114,56 +115,56 @@ public class TcpMaster extends ModbusMaster {
         else
             ipRequest = new XaMessageRequest(request, getNextTransactionId());
 
-        if(LOG.isDebugEnabled()){
+        if(BuildConfig.DEBUG){
 	    	StringBuilder sb = new StringBuilder();
 	        for (byte b : Arrays.copyOfRange(ipRequest.getMessageData(),0,ipRequest.getMessageData().length)) {
 	            sb.append(String.format("%02X ", b));
 	        }
-			LOG.debug("Encap Request: " + sb.toString());
+			Log.d(TAG, "Encap Request: " + sb.toString());
         }
 
 		// Send the request to get the response.
         IpMessageResponse ipResponse;
-    	LOG.debug("Sending on port: " +  ipParameters.getPort());
+    	Log.d(TAG, "Sending on port: " +  ipParameters.getPort());
         try {
         	if(conn == null){
-            	LOG.debug("Connection null: " +  ipParameters.getPort());
+            	Log.d(TAG, "Connection null: " +  ipParameters.getPort());
         	}
             ipResponse = (IpMessageResponse) conn.send(ipRequest);
             if (ipResponse == null)
                 return null;
             
-            if(LOG.isDebugEnabled()){
+            if(BuildConfig.DEBUG){
     	    	StringBuilder sb = new StringBuilder();
 	            for (byte b : Arrays.copyOfRange(ipResponse.getMessageData(),0,ipResponse.getMessageData().length)) {
 	                sb.append(String.format("%02X ", b));
 	            }
-				LOG.debug("Response: " + sb.toString());
+				Log.d(TAG, "Response: " + sb.toString());
             }
             return ipResponse.getModbusResponse();
         }
         catch (Exception e) {
-			LOG.debug("Exception: " + e.getMessage() + " " + e.getLocalizedMessage());
+			Log.d(TAG, "Exception: " + e.getMessage() + " " + e.getLocalizedMessage());
             if (keepAlive) {
-    			LOG.debug("KeepAlive - reconnect!");
+    			Log.d(TAG, "KeepAlive - reconnect!");
                 // The connection may have been reset, so try to reopen it and attempt the message again.
                 try {
-                	LOG.debug("Modbus4J: Keep-alive connection may have been reset. Attempting to re-open.");
+                	Log.d(TAG, "Modbus4J: Keep-alive connection may have been reset. Attempting to re-open.");
                     openConnection();
                     ipResponse = (IpMessageResponse) conn.send(ipRequest);
                     if (ipResponse == null)
                         return null;
-                    if(LOG.isDebugEnabled()){
+                    if(BuildConfig.DEBUG){
             	    	StringBuilder sb = new StringBuilder();
 	                    for (byte b : Arrays.copyOfRange(ipResponse.getMessageData(),0,ipResponse.getMessageData().length)) {
 	                        sb.append(String.format("%02X ", b));
 	                    }
-	        			LOG.debug("Response: " + sb.toString());
+	        			Log.d(TAG, "Response: " + sb.toString());
                     }
                     return ipResponse.getModbusResponse();
                 }
                 catch (Exception e2) {
-        			LOG.debug("Exception: " + e2.getMessage() + " " + e2.getLocalizedMessage());
+        			Log.d(TAG, "Exception: " + e2.getMessage() + " " + e2.getLocalizedMessage());
                     throw new ModbusTransportException(e2, request.getSlaveId());
                 }
             }

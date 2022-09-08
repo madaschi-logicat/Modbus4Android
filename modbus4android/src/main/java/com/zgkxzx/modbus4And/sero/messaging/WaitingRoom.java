@@ -1,10 +1,11 @@
 package com.zgkxzx.modbus4And.sero.messaging;
 
+import android.util.Log;
+
+import com.zgkxzx.modbus4And.BuildConfig;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * The waiting room is a place for request messages to hang out while awaiting their responses.
@@ -12,7 +13,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Matthew Lohbihler
  */
 class WaitingRoom {
-    private static final Log LOG = LogFactory.getLog(WaitingRoom.class);
+    private final static String TAG = "WaitingRoom";
 
     private final Map<WaitingRoomKey, Member> waitHere = new HashMap<WaitingRoomKey, Member>();
 
@@ -32,8 +33,7 @@ class WaitingRoom {
         Member member = new Member();
         synchronized (this) {
             while (waitHere.get(key) != null) {
-                if (LOG.isDebugEnabled())
-                    LOG.debug("Duplicate waiting room key found. Waiting for member to leave.");
+                if (BuildConfig.DEBUG) Log.d(TAG, "Duplicate waiting room key found. Waiting for member to leave.");
                 try {
                     wait();
                 }
