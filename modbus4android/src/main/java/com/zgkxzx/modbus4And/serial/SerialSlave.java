@@ -20,8 +20,7 @@
  */
 package com.zgkxzx.modbus4And.serial;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import android.util.Log;
 
 import com.zgkxzx.modbus4And.ModbusSlaveSet;
 import com.zgkxzx.modbus4And.exception.ModbusInitException;
@@ -29,7 +28,7 @@ import com.zgkxzx.modbus4And.sero.messaging.StreamTransport;
 
 abstract public class SerialSlave extends ModbusSlaveSet {
 
-	private final Log LOG = LogFactory.getLog(SerialSlave.class);
+	private final static String TAG = "SerialSlave";
 	
     // Runtime fields
     private SerialPortWrapper wrapper;
@@ -57,7 +56,7 @@ abstract public class SerialSlave extends ModbusSlaveSet {
         try {
 			wrapper.close();
 		} catch (Exception e) {
-			LOG.error(e.getMessage(),e);
+			Log.e(TAG, e.getMessage(),e);
 		}
     }
 }

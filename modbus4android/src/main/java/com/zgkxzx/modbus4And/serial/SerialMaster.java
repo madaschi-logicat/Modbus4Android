@@ -20,8 +20,7 @@
  */
 package com.zgkxzx.modbus4And.serial;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import android.util.Log;
 
 import com.zgkxzx.modbus4And.ModbusMaster;
 import com.zgkxzx.modbus4And.exception.ModbusInitException;
@@ -30,9 +29,9 @@ import com.zgkxzx.modbus4And.sero.messaging.StreamTransportCharSpaced;
 import com.zgkxzx.modbus4And.sero.messaging.Transport;
 
 abstract public class SerialMaster extends ModbusMaster {
-	
-	
-	private final Log LOG = LogFactory.getLog(SerialMaster.class);
+
+    private final static String TAG = "SerialMaster";
+
 	//These options are no longer supported as they were originally a hack that didn't work right anyway
 	@Deprecated
     public static final int SYNC_TRANSPORT = 1;
@@ -76,7 +75,7 @@ abstract public class SerialMaster extends ModbusMaster {
         try {
 			wrapper.close();
 		} catch (Exception e) {
-			LOG.error(e.getMessage(), e);
+			Log.e(TAG, e.getMessage(), e);
 		}
     }
 }
