@@ -2,7 +2,6 @@ package com.zgkxzx.modbus4And.requset;
 
 import android.util.Log;
 
-import com.zgkxzx.modbus4And.Modbus;
 import com.zgkxzx.modbus4And.ModbusFactory;
 import com.zgkxzx.modbus4And.ModbusMaster;
 import com.zgkxzx.modbus4And.exception.ModbusInitException;
@@ -31,8 +30,11 @@ import com.zgkxzx.modbus4And.msg.WriteRegisterResponse;
 import com.zgkxzx.modbus4And.msg.WriteRegistersRequest;
 import com.zgkxzx.modbus4And.msg.WriteRegistersResponse;
 
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 创建者   zgkxzx
@@ -47,12 +49,13 @@ public class ModbusReq {
     private ModbusMaster mModbusMaster;
     private ModbusParam modbusParam = new ModbusParam();
 
-    ExecutorService executorService = Executors.newFixedThreadPool(1);
+    private BlockingQueue<Runnable> taskQueue = new ArrayBlockingQueue<>(1);
+    ExecutorService executorService = new ThreadPoolExecutor(1, 1, 0, TimeUnit.MILLISECONDS,
+            taskQueue, new ThreadPoolExecutor.CallerRunsPolicy());
 
     private boolean isInit = false;
 
     private ModbusReq() {
-
     }
 
     /**
